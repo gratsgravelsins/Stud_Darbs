@@ -1,0 +1,28 @@
+Ķēdes topogrāfiskā diagrammas kods
+
+
+
+
+from cmath import phase, pi
+import numpy as np
+R1=500; R3=400; f1=0
+#Komplekso pretestiibaam izveidots atsevisks kods!
+ZL1=1306.90254389j; ZL2=1206.37157898j;
+ZC1=-621.698996453j; ZC2=-585.12846725j; ZC3=-568.410511042j;
+Us2m=10.517+7.64j; Us3m=3.708-11.41j;
+R = np.array([[(R1+ZL1+ZC1+ZL2+ZC2), -(ZL2+ZC2)], [-(ZL2+ZC2), (R3+ZC2+ZL2+ZC3)]])
+U = np.array([-(Us2m),-Us3m+Us2m ])
+I = np.linalg.solve(R,U)
+Iam = I[0]
+Ibm = I[1]
+I1m = Iam; I2m = Iam-Ibm; I3m = Ibm
+Umr1=R1*I1m; Umr3=R3*I3m; Umc1=ZC1*I1m; Umc2=ZC2*I2m
+Umc3=ZC3*I3m; Uml1=ZL1*I1m; Uml2=ZL2*I2m
+#Kedes topografiska diagramma
+f2=f1+I2m*ZL2
+f3=f2+I2m*ZC2
+f4=f3+Us2m
+f5=f4-Us3m
+f6=f5-I3m*ZC3
+f7=f6-I3m*R3
+print f7
