@@ -1,0 +1,46 @@
+Kontūrstrāvas kods, strāvu moduļi, fāzes, spriegumu kompleksās amplitūdas, Teledžena teorēmas pārbaude
+
+
+
+from cmath import phase, pi
+import numpy as np
+
+R1=500; R3=400; 
+#Komplekso pretestiibaam izveidots atsevisks kods!
+ZL1=1306.90254389j; ZL2=1206.37157898j;
+ZC1=-621.698996453j; ZC2=-585.12846725j; ZC3=-568.410511042j;
+Us2m=10.517+7.64j; Us3m=3.708-11.41j;
+R = np.array([[(R1+ZL1+ZC1+ZL2+ZC2), -(ZL2+ZC2)], [-(ZL2+ZC2), (R3+ZC2+ZL2+ZC3)]])
+U = np.array([-(Us2m),-Us3m+Us2m ])
+I = np.linalg.solve(R,U)
+Iam = I[0]
+Ibm = I[1]
+
+I1m = Iam
+I2m = Iam-Ibm
+I3m = Ibm
+
+#print Iam*1000, abs(Iam)*1000, phase(Iam)/pi*180
+#print Ibm*1000, abs(Ibm)*1000, phase(Ibm)/pi*180
+#print I1m*1000, abs(I1m)*1000, phase(I1m)/pi*180
+#print I2m*1000, abs(I2m)*1000, phase(I2m)/pi*180
+#print I3m*1000, abs(I3m)*1000, phase(I3m)/pi*180
+
+Umr1=R1*I1m
+#print Umr1, abs(Umr1), phase(Umr1)/pi*180
+Umr3=R3*I3m
+#print Umr3, abs(Umr3), phase(Umr3)/pi*180
+Umc1=ZC1*I1m
+#print Umc1, abs(Umc1), phase(Umc1)/pi*180
+Umc2=ZC2*I2m
+#print Umc2, abs(Umc2), phase(Umc2)/pi*180
+Umc3=ZC3*I3m
+#print Umc3, abs(Umc3), phase(Umc3)/pi*180
+Uml1=ZL1*I1m
+#print Uml1, abs(Uml1), phase(Uml1)/pi*180
+Uml2=ZL2*I2m
+#print Uml2, abs(Uml2), phase(Uml2)/pi*180
+
+#Teledzena teoremas parbaude
+T=I2m*Uml2+I2m*Umc2+I2m*Us2m+I1m*Umr1+I1m*Uml1+I1m*Umc1+I3m*Umr3+I3m*Umc3+I3m*Us3m
+print T
