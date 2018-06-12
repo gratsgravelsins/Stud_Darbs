@@ -1,0 +1,10 @@
+Kods, lai iegūtu kompleksās element prestestības
+
+
+from cmath import phase, pi
+import numpy as np
+f=80000; R1=500; R3=400; L1=2.6*10**-3; L2=2.4*10**-3;
+C1=3.2*10**-9; C2=3.4*10**-9; C3=3.5*10**-9; 
+omega=f*2*pi; ZL1=omega*L1; ZL2=omega*L2; ZC1=(-1)/(omega*C1);
+ZC2=(-1)/(omega*C2); ZC3= (-1)/(omega*C3)
+print ZL1, ZL2, ZC1, ZC2, ZC3
